@@ -1,31 +1,31 @@
-// bibliotecas e códigos de terceiros
+// Função para formatar uma data usando a biblioteca dayjs
 const formatador = (data) => {
   return {
     dia: {
-      numerico: dayjs(data).format('DD'),
+      numerico: dayjs(data).format('DD'), // Formata o dia como número
       semana: {
-        curto: dayjs(data).format('ddd'),
-        longo: dayjs(data).format('dddd'),
+        curto: dayjs(data).format('ddd'), // Dia da semana abreviado
+        longo: dayjs(data).format('dddd'), // Dia da semana completo
       }
     },
-    mes: dayjs(data).format('MMMM'),
-    hora: dayjs(data).format('HH:mm')
+    mes: dayjs(data).format('MMMM'), // Mês completo
+    hora: dayjs(data).format('HH:mm') // Hora no formato de 24 horas
   }
 }
 
-// object {}
+// Objeto representando uma atividade
 const atividade = {
-  nome: "Café da manhã",
-  data: new Date("2024-07-08 08:00"),
-  finalizada: true
+  nome: "Café da Manhã",
+  data: new Date("2024-07-08 08:00"), // Data e hora da atividade
+  finalizada: true // Status de conclusão da atividade
 }
 
-// lista, array, vetor []
+// Lista de atividades
 let atividades = [
   atividade,
   {
-    nome: 'Museu da Arte',
-    data: new Date("2024-07-09 13:00"),
+    nome: 'Visitar Museu da Arte',
+    data: new Date("2024-07-09 12:00"),
     finalizada: false
   },
   {
@@ -33,46 +33,45 @@ let atividades = [
     data: new Date("2024-07-09 16:00"),
     finalizada: true
   },
-  {
+{
     nome: 'Tour noturno',
     data: new Date("2024-07-09 19:00"),
     finalizada: false
   }
 ]
 
-// atividades = []
-
-// arrow function
+// Função para criar um item de atividade HTML
 const criarItemDeAtividade = (atividade) => {
+  // Cria um input do tipo checkbox para marcar a atividade como concluída
   let input = `
   <input 
   onchange="concluirAtividade(event)"
   value="${atividade.data}"
   type="checkbox" 
   `
-
+  
+  // Marca o checkbox se a atividade estiver finalizada
   if(atividade.finalizada) {
     input += 'checked'
   }
  
   input += '>'
 
-  const formatar = formatador(atividade.data);
+  const formatar = formatador(atividade.data); // Formata a data da atividade
 
   return `
   <div class="card-bg">
     ${input}
-
     <div>
+      <!-- SVG para ícone ativo -->
       <svg class="active" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M7.50008 10L9.16675 11.6667L12.5001 8.33335M18.3334 10C18.3334 14.6024 14.6025 18.3334 10.0001 18.3334C5.39771 18.3334 1.66675 14.6024 1.66675 10C1.66675 5.39765 5.39771 1.66669 10.0001 1.66669C14.6025 1.66669 18.3334 5.39765 18.3334 10Z" stroke="#BEF264" style="stroke:#BEF264;stroke:color(display-p3 0.7451 0.9490 0.3922);stroke-opacity:1;" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
 
+      <!-- SVG para ícone inativo -->
       <svg class="inactive" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M8.41664 1.81836C9.46249 1.61597 10.5374 1.61597 11.5833 1.81836M11.5833 18.1817C10.5374 18.3841 9.46249 18.3841 8.41664 18.1817M14.6741 3.10086C15.5587 3.70022 16.3197 4.46409 16.9158 5.35086M1.8183 11.5834C1.6159 10.5375 1.6159 9.46255 1.8183 8.4167M16.8991 14.6742C16.2998 15.5588 15.5359 16.3198 14.6491 16.9159M18.1816 8.4167C18.384 9.46255 18.384 10.5375 18.1816 11.5834M3.1008 5.32586C3.70016 4.44131 4.46403 3.68026 5.3508 3.0842M5.3258 16.8992C4.44124 16.2998 3.6802 15.536 3.08414 14.6492" stroke="#A1A1AA" style="stroke:#A1A1AA;stroke:color(display-p3 0.6314 0.6314 0.6667);stroke-opacity:1;" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
-
-
       <span>${atividade.nome}</span>
     </div>
     
@@ -92,51 +91,56 @@ const criarItemDeAtividade = (atividade) => {
   `
 }
 
+// Atualiza a lista de atividades exibidas
 const atualizarListaDeAtividades = () => {
   const section = document.querySelector('section')
   section.innerHTML = ''
 
-  // verificar se a minha lista está vazia
+  // Verifica se a lista de atividades está vazia
   if(atividades.length == 0) {
-    section.innerHTML = <p>Nenhuma atividade cadastrada.</p>
+    section.innerHTML = `<p>Nenhuma atividade cadastrada.</p>`
     return
   }
 
+  // Adiciona cada atividade à seção
   for(let atividade of atividades) {
     section.innerHTML += criarItemDeAtividade(atividade)
   }
 
 }
-atualizarListaDeAtividades()
+atualizarListaDeAtividades() // Chama a função para exibir as atividades
 
-
+// Função para salvar uma nova atividade
 const salvarAtividade = (event) => {
-  event.preventDefault()
-  const dadosDoFormulario = new FormData(event.target)
+  event.preventDefault() // Evita o comportamento padrão do formulário
+  const dadosDoFormulario = new FormData(event.target) // Coleta os dados do formulário
 
   const nome = dadosDoFormulario.get('atividade')
   const dia = dadosDoFormulario.get('dia')
   const hora = dadosDoFormulario.get('hora')
-  const data = ${dia} ${hora}
+  const data = `${dia} ${hora}` // Cria uma string de data e hora
 
   const novaAtividade = {
     nome,
     data,
-    finalizada: false
+    finalizada: false // Inicialmente não finalizada
   }
 
+  // Verifica se já existe uma atividade com a mesma data e hora
   const atividadeExiste = atividades.find((atividade) => {
     return atividade.data == novaAtividade.data
   })
 
+  // Alerta se a data/hora já estiver ocupada
   if(atividadeExiste) {
     return alert('Dia/Hora não disponível')
   }
 
-  atividades = [novaAtividade, ...atividades]
-  atualizarListaDeAtividades()
+  atividades = [novaAtividade, ...atividades] // Adiciona a nova atividade no início da lista
+  atualizarListaDeAtividades() // Atualiza a lista de atividades
 }
 
+// Função para criar opções de dias no seletor
 const criarDiasSelecao = () => {
   const dias = [
     '2024-02-28',
@@ -161,16 +165,16 @@ const criarDiasSelecao = () => {
 
   document
   .querySelector('select[name="dia"]')
-  .innerHTML = diasSelecao
+  .innerHTML = diasSelecao // Adiciona as opções ao seletor de dias
 
 }
-criarDiasSelecao()
+criarDiasSelecao() // Cria as opções de dias
 
-
+// Função para criar opções de horas no seletor
 const criarHorasSelecao = () => {
   let horasDisponiveis = ''
 
-  for(let i = 6; i < 23; i++) {
+  for(let i = 6; i < 23; i++) { // Loop para horas entre 06:00 e 22:30
     const hora = String(i).padStart(2, '0')
     horasDisponiveis += `
     <option value="${hora}:00">${hora}:00</option>`
@@ -180,10 +184,11 @@ const criarHorasSelecao = () => {
 
   document
   .querySelector('select[name="hora"]')
-  .innerHTML = horasDisponiveis
+  .innerHTML = horasDisponiveis // Adiciona as opções ao seletor de horas
 }
-criarHorasSelecao()
+criarHorasSelecao() // Cria as opções de horas
 
+// Função para marcar uma atividade como concluída ou não
 const concluirAtividade = (event) => {
   const input = event.target
   const dataDesteInput = input.value
@@ -196,5 +201,5 @@ const concluirAtividade = (event) => {
     return
   }
 
-  atividade.finalizada = !atividade.finalizada
+  atividade.finalizada = !atividade.finalizada // Alterna o estado de conclusão
 }
