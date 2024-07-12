@@ -1,0 +1,203 @@
+/* Define estilos básicos para todos os elementos */
+* {
+  margin: 0; /* Remove a margem padrão dos elementos */
+  padding: 0; /* Remove o preenchimento padrão dos elementos */
+  box-sizing: border-box; /* Inclui bordas e preenchimento na largura e altura total dos elementos */
+}
+
+/* Aplica estilos comuns aos elementos html, input, select e button */
+html, input, select, button {
+  font-family: 'Inter', sans-serif; /* Define a fonte para os elementos */
+  background-color:blueviolet; /* Define a cor de fundo */
+  color: #FAFAFA; /* Define a cor do texto */
+  
+  line-height: 120%; /* Define a altura da linha para melhor legibilidade */
+  letter-spacing: -0.02em; /* Ajusta o espaçamento entre letras */
+}
+
+/* Estilos específicos para o contêiner principal da aplicação */
+#app {
+  padding: 40px 20px; /* Adiciona preenchimento interno */
+  max-width: 320px; /* Define a largura máxima do contêiner */
+  margin: auto; /* Centraliza o contêiner horizontalmente */
+}
+
+/* Estilos para o elemento com id "place" */
+#place {
+  display: flex; /* Usa flexbox para layout */
+  align-items: center; /* Alinha itens verticalmente ao centro */
+  gap: 8px; /* Espaçamento entre os itens */
+  
+  padding: 22px 16px; /* Adiciona preenchimento interno */
+  
+  font-size: 14px; /* Define o tamanho da fonte */
+  margin-bottom: 32px; /* Adiciona margem inferior */
+}
+
+/* Remove todos os estilos padrões dos elementos input e select */
+input, select {
+  all: unset; /* Remove todos os estilos padrões */
+}
+
+/* Define largura total para input, select e button */
+input, select, button {
+  width: 100%; /* Largura total do contêiner pai */
+}
+
+/* Estilos para o contêiner dos campos */
+.fields {
+  display: grid; /* Usa grid para layout */
+  gap: 8px; /* Espaçamento entre os itens */
+}
+
+/* Estilos para cada wrapper de campo */
+.field-wrapper {
+  padding: 18px; /* Adiciona preenchimento interno */
+  background-color: #09090B; /* Define a cor de fundo */
+  border: 1px solid #27272A; /* Define a borda */
+  border-radius: 8px; /* Adiciona bordas arredondadas */
+  
+  display: flex; /* Usa flexbox para layout */
+  align-items: center; /* Alinha itens verticalmente ao centro */
+  gap: 10px; /* Espaçamento entre os itens */
+}
+
+/* Adiciona um contorno amarelo-esverdeado ao wrapper quando ele ou seus filhos estão em foco */
+.field-wrapper:focus-within {
+  outline: 2px solid yellowgreen;
+}
+
+/* Estilos para o botão */
+button {
+  margin-top: 12px; /* Adiciona margem superior */
+  border: none; /* Remove a borda padrão */
+  padding: 12px 20px; /* Adiciona preenchimento interno */
+  background-color: #AFF445; /* Define a cor de fundo */
+  border-radius: 8px; /* Adiciona bordas arredondadas */
+  
+  font-weight: 500; /* Define o peso da fonte */
+  font-size: 16px; /* Define o tamanho da fonte */
+  
+  color: #132F00; /* Define a cor do texto */
+}
+
+/* Estilos para o fundo dos cartões */
+.card-bg {
+  background: #18181B; /* Define a cor de fundo */
+  
+  /* Adiciona sombras ao redor e dentro do elemento */
+  box-shadow: 
+    0px 8px 8px rgba(0, 0, 0, 0.1), 
+    0px 4px 4px rgba(0, 0, 0, 0.1), 
+    0px 2px 2px rgba(0, 0, 0, 0.1), 
+    0px 0px 0px 1px rgba(0, 0, 0, 0.1), 
+    inset 0px 0px 0px 1px rgba(255, 255, 255, 0.03), inset 0px 1px 0px rgba(255, 255, 255, 0.03);
+  
+  border-radius: 12px; /* Adiciona bordas arredondadas */
+}
+
+/* Estilos para o elemento main */
+main {
+  margin-top: 32px; /* Adiciona margem superior */
+}
+
+/* Estilos para o título h1 */
+h1 {
+  text-align: center; /* Centraliza o texto */
+  font-weight: 600; /* Define o peso da fonte */
+  font-size: 24px; /* Define o tamanho da fonte */
+  
+  margin-bottom: 24px; /* Adiciona margem inferior */
+}
+
+/* Estilos para a seção dentro do main */
+section {
+  display: grid; /* Usa grid para layout */
+  gap: 10px; /* Espaçamento entre os itens */
+}
+
+/* Estilos para o input do tipo checkbox dentro da seção */
+section input[type="checkbox"] {
+  position: absolute; /* Remove o checkbox do fluxo normal do documento */
+  inset: 0; /* Alinha o checkbox aos limites do contêiner pai */
+}
+
+/* Estilos para o cartão dentro da seção */
+section .card-bg {
+  position: relative; /* Define o posicionamento relativo */
+  padding: 10px 16px; /* Adiciona preenchimento interno */
+  
+  display: flex; /* Usa flexbox para layout */
+  align-items: center; /* Alinha itens verticalmente ao centro */
+  justify-content: space-between; /* Distribui espaço entre os itens */
+}
+
+/* Mostra o elemento com a classe .active e oculta o com a classe .inactive quando o cartão está selecionado */
+section .card-bg:has(:checked) .active,
+section .card-bg .inactive {
+  display: block;
+}
+
+/* Oculta o elemento com a classe .active e mostra o com a classe .inactive quando o cartão está selecionado */
+section .card-bg:has(:checked) .inactive,
+section .card-bg .active {
+  display: none;
+}
+
+/* Estilos para o contêiner interno dentro do cartão */
+section .card-bg > div {
+  display: flex; /* Usa flexbox para layout */
+  align-items: center; /* Alinha itens verticalmente ao centro */
+  gap: 12px; /* Espaçamento entre os itens */
+}
+
+/* Estilos para o elemento time */
+time {
+  font-size: 14px; /* Define o tamanho da fonte */
+  color: #A1A1AB; /* Define a cor do texto */
+  text-align: right; /* Alinha o texto à direita */
+}
+
+/* Oculta o tempo completo (class .full) por padrão */
+time.full {
+  display: none;
+}
+
+/* Estilos para dispositivos com largura maior que 1024px */
+@media (width > 1024px) {
+  #app {
+    display: flex; /* Usa flexbox para layout */
+    max-width: 960px; /* Define a largura máxima */
+    gap: 32px; /* Espaçamento entre os itens */
+  }
+  
+  main {
+    margin-top: 0; /* Remove a margem superior */
+    flex: 1; /* Permite que o main cresça para ocupar o espaço disponível */
+  }
+  
+  h1 {
+    text-align: left; /* Alinha o texto à esquerda */
+  }
+  
+  /* Mostra o tempo completo e oculta o tempo curto em telas maiores */
+  time.full {
+    display: block;
+  }
+  
+  time.short {
+    display: none;
+  }
+}
+
+/* Animação para o fundo do cartão */
+section .card-bg {
+  animation: appear 300ms; /* Aplica a animação 'appear' com duração de 300ms */
+}
+
+/* Define a animação 'appear' */
+@keyframes appear {
+  from {
+    opacity: 0; /* Começa com opacidade 0 */
+  }
+}
